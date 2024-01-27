@@ -1,0 +1,94 @@
+/* ===( CODE AASHU )=== */
+h1 {
+  font-family: system-ui, sans-serif;
+  font-size: 10vw;
+  text-align: center;
+}
+
+.text-reveal {
+  --animation-duration: 2s;
+  --animation-delay: 1s;
+  
+  --1-fill-color: transparent;
+  --1-stroke-color: rgb(3, 100, 105);
+  --1-stroke-size: 1px;
+  
+  --2-fill-color: rgb(3, 100, 105);
+  --2-stroke-color: rgb(45, 173, 180);
+  --2-stroke-size: 1px;
+ 
+  --lines-color: rgb(45, 173, 180);;
+  --lines-size: 2px;
+  
+  --text-padding: 0.5rem 1rem;
+  
+  display: grid;
+  
+  &::after, & > span { 
+    grid-area: 1/1;
+    animation: var(--animation-name) var(--animation-duration) ease-in-out var(--animation-delay) forwards }
+  
+  > span {
+    padding: var(--text-padding);
+    color: var(--color);
+    opacity: 0; 
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-image: var(--mask-image);
+    -webkit-mask-composite: var(--mask-composite-webkit);
+    -webkit-mask-size: var(--mask-size);
+    
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-image: var(--mask-image);
+    mask-composite: var(--mask-composite);
+    
+    &:nth-child(1) {
+      -webkit-text-stroke: var(--1-stroke-size) var(--1-stroke-color);
+      --color: var(--1-fill-color);
+      --mask-image: linear-gradient(black 0 0), linear-gradient(black 0 0);
+      --mask-composite-webkit: destination-out;
+      --mask-composite: exclude;
+      --animation-name: text-reveal-1;
+      
+    }
+    &:nth-child(2){
+      -webkit-text-stroke: var(--2-stroke-size) var(--2-stroke-color);
+      --color: var(--2-fill-color);
+      --mask-image: linear-gradient(black 0 0);
+      --animation-name: text-reveal-2;
+    }
+
+  }
+  &::after{
+    content: "";
+    z-index: 2;
+    border: var(--lines-size) solid var(--lines-color);
+    border-block: none;
+    width: 100%;
+    justify-self: center;
+    opacity: 0; 
+    --animation-name: text-reveal-lines;
+  }
+}
+@keyframes text-reveal-1 { 
+  0%, 100% { -webkit-mask-size: 100% 100%, 100%; mask-size: 100% 100%, 100%; opacity: 1 }
+  50% { -webkit-mask-size: 0% 100%, 100%; mask-size: 100% 100%, 100% } 
+}
+@keyframes text-reveal-2 { 
+  0%, 50% { -webkit-mask-size: 0% 100%; mask-size: 0% 100%; opacity: 1 }
+  100% { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; opacity: 1  } 
+}
+@keyframes text-reveal-lines { 
+  5%, 95% { opacity: 1 } 
+  50% { width: 0 } 
+}
+
+
+*, *:before, *::after { margin: 0; padding: 0; box-sizing: border-box }
+.hero { 
+  min-height: 100vh;
+  background-color: black;
+  display: grid;
+  place-items: center;
+}
